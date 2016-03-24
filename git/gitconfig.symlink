@@ -5,9 +5,9 @@
         protocol = https
 [alias]
         co = checkout
-        promote = !$ZSH/bin/git-promote
-        wtf     = !$ZSH/bin/git-wtf
-        rank-contributors = !$ZSH/bin/git-rank-contributors
+        promote = !$DFZSH/bin/git-promote
+        wtf     = !$DFZSH/bin/git-wtf
+        rank-contributors = !$DFZSH/bin/git-rank-contributors
         count   = !git shortlog -sn
 [color]
         diff = auto
