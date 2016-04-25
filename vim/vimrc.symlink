@@ -2,3 +2,11 @@ syntax on
 
 " Wrap gitcommit file types at the appropriate length
 filetype indent plugin on
+
+set wildignore+=*.js
+set sw=2 ts=2 sts=2 et
+set tw=110
+
+call pathogen#infect()
+syntax enable
+filetype plugin indent on
