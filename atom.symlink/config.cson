@@ -1,6 +1,10 @@
 "*":
   core:
     autoHideMenuBar: true
+    disabledPackages: [
+      "language-gfm"
+    ]
+    telemetryConsent: "limited"
   editor: {}
   "exception-reporting":
     userId: "d49d8914-9916-f12a-4629-9df77d6f6b27"
