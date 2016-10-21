@@ -5,9 +5,11 @@
       "language-gfm"
     ]
     telemetryConsent: "limited"
-  editor: {}
+  editor:
+    fontSize: 12
   "exception-reporting":
     userId: "d49d8914-9916-f12a-4629-9df77d6f6b27"
-  linter: {}
+  linter:
+    errorPanelHeight: 24
   welcome:
     showOnStartup: false

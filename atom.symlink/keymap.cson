@@ -1,2 +1,22 @@
 'atom-text-editor.vim-mode-plus.insert-mode':
   'j k': 'vim-mode-plus:activate-normal-mode'
+
+'atom-text-editor.vim-mode.insert-mode':
+  'j k': 'vim-mode:activate-normal-mode'
+
+"atom-workspace":
+  "ctrl-tab": "tab-switcher:next"
+  "ctrl-tab ^ctrl": "unset!"
+  "ctrl-shift-tab": "tab-switcher:previous"
+  "ctrl-shift-tab ^ctrl": "unset!"
+
+"ol.tab-switcher-tab-list":
+  "^ctrl": "tab-switcher:select"
+  "ctrl-up": "tab-switcher:previous"
+  "ctrl-down": "tab-switcher:next"
+  "ctrl-escape": "tab-switcher:cancel"
+  "ctrl-n": "tab-switcher:next"
+  "ctrl-p": "tab-switcher:previous"
+  "ctrl-w": "tab-switcher:close"
+  "ctrl-s": "tab-switcher:save"
+>>>>>>> 23e4f728d017f6f2bb18a20797bdc63146701e33
