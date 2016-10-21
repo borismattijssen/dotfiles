@@ -63,3 +63,6 @@ then
 
 	source $ZSH/oh-my-zsh.sh
 fi
+
+# added by travis gem
+[ -f /home/boris/.travis/travis.sh ] && source /home/boris/.travis/travis.sh
