@@ -1,5 +1,0 @@
-#!/bin/sh
-#
-# Sets OS X defaults by running $DFZSH/osx/set-defaults.sh.
-
-exec $DFZSH/osx/set-defaults.sh

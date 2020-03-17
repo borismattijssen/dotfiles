@@ -2,7 +2,6 @@
 #
 # bootstrap installs things.
 
-cd "$(dirname "$0")/.."
 DOTFILES_ROOT=$(pwd -P)
 
 set -e
@@ -137,20 +136,19 @@ install_dotfiles () {
   done
 }
 
+install_homebrew () {
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
+    brew bundle
+}
+
+install_installers() {
+    find . -name install.sh | while read installer ; do sh -c "${installer}" ; done
+}
+
 setup_gitconfig
 install_dotfiles
-
-# If we're on a Mac, let's install and setup homebrew.
-if [ "$(uname -s)" == "Darwin" ]
-then
-  info "installing dependencies"
-  if source bin/dot > /tmp/dotfiles-dot 2>&1
-  then
-    success "dependencies installed"
-  else
-    fail "error installing dependencies"
-  fi
-fi
+install_homebrew
+install_installers
 
 echo ''
 echo '  All installed!'

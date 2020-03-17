@@ -65,8 +65,9 @@ set -g visual-activity on
 
 # Vi copypaste mode
 set-window-option -g mode-keys vi
-bind-key -t vi-copy 'v' begin-selection
-bind-key -t vi-copy 'y' copy-selection
+bind-key -T copy-mode-vi 'v' begin-selection
+bind-key -T copy-mode-vi 'y' send-keys -X copy-pipe-and-cancel "pbcopy"
+bind-key -T copy-mode-vi MouseDragEnd1Pane begin-selection
 bind = paste-buffer
 
 # hine traversal
@@ -105,15 +106,26 @@ bind -n WheelUpPane if-shell -F -t = "#{mouse_any_flag}" "send-keys -M" "if -Ft=
 
 # fix pane_current_path on new window and splits
 if-shell "#{$TMUX_VERSION_MAJOR} -gt 1 -o \( #{$TMUX_VERSION_MAJOR} -eq 1 -a #{$TMUX_VERSION_MINOR} -ge 8 \)" 'unbind c; bind c new-window -c "#{pane_current_path}"'
-    if-shell "#{$TMUX_VERSION_MAJOR} -gt 1 -o \( #{$TMUX_VERSION_MAJOR} -eq 1 -a #{$TMUX_VERSION_MINOR} -ge 8 \)" "unbind '\"'; bind '\"' split-window -v -c '#{pane_current_path}'"
-        if-shell "#{$TMUX_VERSION_MAJOR} -gt 1 -o \( #{$TMUX_VERSION_MAJOR} -eq 1 -a #{$TMUX_VERSION_MINOR} -ge 8 \)" 'unbind v; bind v split-window -h -c "#{pane_current_path}"'
-            if-shell "#{$TMUX_VERSION_MAJOR} -gt 1 -o \( #{$TMUX_VERSION_MAJOR} -eq 1 -a #{$TMUX_VERSION_MINOR} -ge 8 \)" 'unbind %; bind % split-window -h -c "#{pane_current_path}"'
+if-shell "#{$TMUX_VERSION_MAJOR} -gt 1 -o \( #{$TMUX_VERSION_MAJOR} -eq 1 -a #{$TMUX_VERSION_MINOR} -ge 8 \)" "unbind '\"'; bind '\"' split-window -v -c '#{pane_current_path}'"
+if-shell "#{$TMUX_VERSION_MAJOR} -gt 1 -o \( #{$TMUX_VERSION_MAJOR} -eq 1 -a #{$TMUX_VERSION_MINOR} -ge 8 \)" 'unbind v; bind v split-window -h -c "#{pane_current_path}"'
+if-shell "#{$TMUX_VERSION_MAJOR} -gt 1 -o \( #{$TMUX_VERSION_MAJOR} -eq 1 -a #{$TMUX_VERSION_MINOR} -ge 8 \)" 'unbind %; bind % split-window -h -c "#{pane_current_path}"'
+
+bind-key -T copy-mode-vi DoubleClick1Pane \
+    select-pane \; \
+    send-keys -X select-word \;
+bind-key -n DoubleClick1Pane \
+    select-pane \; \
+    copy-mode -M \; \
+    send-keys -X select-word \;
+
 
 
 set -g @plugin 'tmux-plugins/tpm'
 set -g @plugin 'tmux-plugins/tmux-sensible'
 set -g @plugin 'tmux-plugins/tmux-resurrect'
 set -g @plugin 'tmux-plugins/tmux-yank'
+
+bind-key -T copy-mode-vi MouseDragEnd1Pane begin-selection
 
 # Other examples:
 # # set -g @plugin 'github_username/plugin_name'

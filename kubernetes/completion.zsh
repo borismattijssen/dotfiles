@@ -1,3 +1,3 @@
-if [[ -d $PROJECTS/go/src/k8s.io/kubernetes ]]; then
-    source $PROJECTS/go/src/k8s.io/kubernetes/contrib/completions/zsh/kubectl
+if type "kubectl" > /dev/null; then
+    source <(kubectl completion zsh)
 fi
