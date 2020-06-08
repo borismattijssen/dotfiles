@@ -26,28 +26,6 @@ fail () {
   exit
 }
 
-setup_gitconfig () {
-  if ! [ -f git/gitconfig.local.symlink ]
-  then
-    info 'setup gitconfig'
-
-    git_credential='cache'
-    if [ "$(uname -s)" == "Darwin" ]
-    then
-      git_credential='osxkeychain'
-    fi
-
-    user ' - What is your github author name?'
-    read -e git_authorname
-    user ' - What is your github author email?'
-    read -e git_authoremail
-
-    sed -e "s/AUTHORNAME/$git_authorname/g" -e "s/AUTHOREMAIL/$git_authoremail/g" -e "s/GIT_CREDENTIAL_HELPER/$git_credential/g" git/gitconfig.local.symlink.example > git/gitconfig.local.symlink
-
-    success 'gitconfig'
-  fi
-}
-
 
 link_file () {
   local src=$1 dst=$2
@@ -137,15 +115,18 @@ install_dotfiles () {
 }
 
 install_homebrew () {
+    info 'installing homebrew'
     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
+
+    info 'installing homebrew bundles'
     brew bundle
 }
 
 install_installers() {
-    find . -name install.sh | while read installer ; do sh -c "${installer}" ; done
+    info 'execute installers'
+    find . -mindepth 2 -name install.sh | while read installer ; do sh -c "${installer}" ; done
 }
 
-setup_gitconfig
 install_dotfiles
 install_homebrew
 install_installers
