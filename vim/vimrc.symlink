@@ -89,13 +89,12 @@ set ffs=unix,dos,mac                        " Use Unix as standard filetype
 set noswapfile                              " Disable swap and backup measures set nowb
 set nobackup
 
-set expandtab                               " Use spaces instead of tabs
 set smarttab                                " Be smart with tabs
 set shiftwidth=4                            " 1 tab == 4 spaces
 set tabstop=4
 set autoindent                              " Set auto indent
-set smartindent                             " Set smart indent
 set wrap                                    " Wrap lines
+filetype plugin indent on
 
 map j gj|                                   " Treat long lines as break lines
 map k gk
@@ -108,36 +107,4 @@ set guioptions-=T                           " Remove toolbar
 set guioptions-=r                           " Remove right-hand scroll bar
 set guioptions-=L                           " Remove left-hand scroll bar
 
-inoremap <C-Space> <C-x><C-o>|              " Omnicomplete
-inoremap <C-@> <C-Space>
-
-let delimitMate_expand_cr = 1 |             " Auto indent after bracket
-let g:syntastic_javascript_checkers = ['jshint']|   " Syntastic
-
 inoremap jk <Esc>|                          " Experimental
-
-                                            " Make powerline work on windows
-set guifont=Consolas\ for\ Powerline\ FixedD:h12
-let g:airline_powerline_fonts = 1
-let g:airline_theme='molokai'
-
-" Automatically insert import paths
-let g:go_fmt_command = "goimports"
-
-" Go keybindings
-au FileType go nmap <leader>r <Plug>(go-run)
-au FileType go nmap <leader>b <Plug>(go-build)
-au FileType go nmap <leader>t <Plug>(go-test)
-au FileType go nmap <leader>c <Plug>(go-coverage)
-
-au FileType go nmap <Leader>ds <Plug>(go-def-split)
-au FileType go nmap <Leader>dv <Plug>(go-def-vertical)
-au FileType go nmap <Leader>dt <Plug>(go-def-tab)
-
-au FileType go nmap <Leader>gd <Plug>(go-doc)
-au FileType go nmap <Leader>gv <Plug>(go-doc-vertical)
-au FileType go nmap <Leader>gb <Plug>(go-doc-browser)
-
-au FileType go nmap <Leader>i <Plug>(go-info)
-
-au FileType go nmap <Leader>e <Plug>(go-rename)
