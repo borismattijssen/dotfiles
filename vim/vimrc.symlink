@@ -8,26 +8,17 @@ set rtp+=~/.vim/bundle/Vundle.vim           " Set vundle runtime path
 call vundle#begin()
 Plugin 'vim-scripts/peaksea'                " Colorschemes
 Plugin 'altercation/vim-colors-solarized'
-
 Plugin 'gmarik/Vundle.vim'                  " Vundle plugins
 Plugin 'kien/ctrlp.vim'                     " Fuzzy file searcher
 Plugin 'scrooloose/syntastic'               " Run 3rd party linters in gutter
-Plugin 'airblade/vim-gitgutter'             " Shows git edits in gutter
 Plugin 'bronson/vim-trailing-whitespace'    " Highlights trailing ws
 Plugin 'pangloss/vim-javascript'            " Improved syntax highlighting
 Plugin 'bling/vim-airline'                  " Improved status bar
 Plugin 'raimondi/delimitmate'               " Auto close brackets etc
 Plugin 'tomtom/tcomment_vim'                " Add comment shortcuts
-Plugin 'mattn/emmet-vim'                    " Easy HTML
-Plugin 'wavded/vim-stylus'                  " Stylus highlighting
 Plugin 'nelstrom/vim-visual-star-search'    " Use * to search visual selection
-Plugin 'marijnh/tern_for_vim'               " Code analysis engine
-Plugin 'tpope/vim-fugitive'                 " Git wrapper
 Plugin 'tpope/vim-surround'                 " Surround with
-Plugin 'tpope/vim-unimpaired'               " Bracket mappings
 Plugin 'vim-airline/vim-airline-themes'     " Themes for airline
-Plugin 'fatih/vim-go'                       " Go support
-
 call vundle#end()
 
 filetype plugin indent on                   " Expose filetype
@@ -108,3 +99,5 @@ set guioptions-=r                           " Remove right-hand scroll bar
 set guioptions-=L                           " Remove left-hand scroll bar
 
 inoremap jk <Esc>|                          " Experimental
+
+let g:syntastic_python_checkers = ['pylint']	" Add python linter to VIM

@@ -36,6 +36,7 @@
 	helper = cache --timeout=86400
 [user]
 	name = borismattijssen
+	email = borismattijssen@gmail.com
 [filter "lfs"]
 	clean = git-lfs clean -- %f
 	smudge = git-lfs smudge -- %f

@@ -63,5 +63,10 @@ then
 	source $ZSH/oh-my-zsh.sh
 fi
 
-# Dont' show username in front of each prompt
+# Don't show username in front of each prompt
 prompt_context(){}
+
+# Set vim mode on cli input
+bindkey -v
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
