@@ -2,7 +2,12 @@
 #
 # bootstrap installs things.
 
+environment=$1
+[[ -z $environment ]] && echo 'Please supply an environment. Usage: ./install.sh <environment>' && exit -1
+
 DOTFILES_ROOT=$(pwd -P)
+ENV_ROOT="$DOTFILES_ROOT/$environment"
+TOPICS_ROOT="$DOTFILES_ROOT/$environment/topcis"
 
 set -e
 
@@ -107,7 +112,7 @@ install_dotfiles () {
 
   local overwrite_all=false backup_all=false skip_all=false
 
-  for src in $(find -H "$DOTFILES_ROOT" -maxdepth 2 -name '*.symlink' -not -path '*.git*')
+  for src in $(find "$TOPICS_ROOT" -name '*.symlink' -not -path '*.git*')
   do
     dst="$HOME/.$(basename "${src%.*}")"
     link_file "$src" "$dst"
@@ -119,17 +124,22 @@ install_homebrew () {
     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
 
     info 'installing homebrew bundles'
-    brew bundle
+    brew bundle --file "$ENV_ROOT/Brewfile"
 }
 
 install_installers() {
     info 'execute installers'
-    find . -mindepth 2 -name install.sh | while read installer ; do sh -c "${installer}" ; done
+    find "$TOPICS_ROOT" -mindepth 2 -name install.sh | while read installer ; do sh -c "${installer}" ; done
+}
+
+add_environment() {
+	echo $environment >> installed_environments
 }
 
 install_dotfiles
 install_homebrew
 install_installers
+add_environment
 
 echo ''
 echo '  All installed!'
