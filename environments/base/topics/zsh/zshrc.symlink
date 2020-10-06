@@ -13,7 +13,7 @@ then
 fi
 
 environments=$(cat $DFZSH/installed_environments)
-for environment in $environments
+cat $DFZSH/installed_environments | while read environment;
 do
   # all of our zsh files
   typeset -U config_files
