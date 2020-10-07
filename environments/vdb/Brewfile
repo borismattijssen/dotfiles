@@ -1,8 +1,6 @@
 cask_args appdir: '/Applications'
 
-tap 'homebrew/cask-cask'
 tap 'homebrew/bundle'
-tap 'adoptopenjdk/openjdk'
 tap 'microsoft/mssql-release'
 
 brew 'azure-cli'
@@ -15,3 +13,4 @@ cask 'adoptopenjdk8'
 cask 'pycharm-ce'
 cask 'postman'
 cask 'azure-data-studio'
+cask 'google-drive-file-stream'

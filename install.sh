@@ -6,8 +6,8 @@ environment=$1
 [[ -z $environment ]] && echo 'Please supply an environment. Usage: ./install.sh <environment>' && exit -1
 
 DOTFILES_ROOT=$(pwd -P)
-ENV_ROOT="$DOTFILES_ROOT/$environment"
-TOPICS_ROOT="$DOTFILES_ROOT/$environment/topcis"
+ENV_ROOT="$DOTFILES_ROOT/environments/$environment"
+TOPICS_ROOT="$ENV_ROOT/topics"
 
 set -e
 
@@ -27,8 +27,6 @@ success () {
 
 fail () {
   printf "\r\033[2K  [\033[0;31mFAIL\033[0m] $1\n"
-  echo ''
-  exit
 }
 
 
@@ -117,23 +115,36 @@ install_dotfiles () {
     dst="$HOME/.$(basename "${src%.*}")"
     link_file "$src" "$dst"
   done
+  echo ''
 }
 
 install_homebrew () {
-    info 'installing homebrew'
-    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
+    command -v brew &> /dev/null
+    if [ $? -ne 0 ]
+    then
+      info 'installing homebrew'
+      /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
+    fi
 
     info 'installing homebrew bundles'
-    brew bundle --file "$ENV_ROOT/Brewfile"
+    brew bundle -v --file "$ENV_ROOT/Brewfile" || fail 'not all brew apps could be installed'
+    echo ''
 }
 
 install_installers() {
-    info 'execute installers'
-    find "$TOPICS_ROOT" -mindepth 2 -name install.sh | while read installer ; do sh -c "${installer}" ; done
+    info 'executing installers'
+    for installer in $(find "$TOPICS_ROOT" -name install.sh)
+    do
+      info "starting ${installer}"
+      sh "${installer}" && success "installed ${installer}" || fail "failed to install ${installer}"
+    done
+    echo ''
 }
 
 add_environment() {
-	echo $environment >> installed_environments
+  info "adding ${environment} to installed_environments"
+	echo $environment >> installed_environments && success "added ${environment} to installed_environments"
+  echo ''
 }
 
 install_dotfiles
@@ -141,5 +152,4 @@ install_homebrew
 install_installers
 add_environment
 
-echo ''
-echo '  All installed!'
+success 'All installed!'
