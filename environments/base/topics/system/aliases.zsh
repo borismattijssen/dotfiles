@@ -2,11 +2,12 @@
 alias ea='vim ~/.dotfiles/environments/base/topics/system/aliases.zsh'
 alias reload!='. ~/.zshrc'
 alias dockertime='docker run -it --rm --privileged --pid=host debian nsenter -t 1 -m -u -n -i date -u $(date -u +%m%d%H%M%Y)'
-alias se='source venv/bin/activate'
+alias se='source venv*/bin/activate'
 alias f='vim $(fzf)'
 alias pr='~/.dotfiles/environments/base/topics/python/pandas_repl.py'
 alias scr='cd ~/dev/github/Vandebron/scripting'
 alias scrp='cd ~/dev/github/Vandebron/scripting/python'
+alias tft='toggle-fzf-tab'
 
 # GIT
 alias gl='git pull'

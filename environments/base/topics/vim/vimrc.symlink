@@ -101,3 +101,28 @@ set guioptions-=L                           " Remove left-hand scroll bar
 inoremap jk <Esc>|                          " Experimental
 
 let g:syntastic_python_checkers = ['pylint']	" Add python linter to VIM
+
+set shell=/bin/bash
+
+au BufNewFile,BufRead COMMIT_EDITMSG setlocal spell textwidth=72
+
+hi clear SpellBad
+hi SpellBad cterm=underline
+
+function! s:expand_commit_template() abort
+  let branchname = matchstr(system('git rev-parse --abbrev-ref HEAD'), '\p\+')
+  let context = {
+        \ 'BRANCH_NAME': branchname,
+        \ 'STORY_NUMBER': substitute(branchname, 'feature/\([a-zA-Z]*-[0-9]*\).*','\1' ,'p'),
+        \ 'AUTHOR': 'Tommy A',
+        \ }
+
+  let lnum = nextnonblank(1)
+  while lnum && lnum < line('$')
+    call setline(lnum, substitute(getline(lnum), '\${\(\w\+\)}',
+          \ '\=get(context, submatch(1), submatch(0))', 'g'))
+    let lnum = nextnonblank(lnum + 1)
+  endwhile
+endfunction
+
+autocmd BufRead */.git/COMMIT_EDITMSG call s:expand_commit_template()

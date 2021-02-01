@@ -1,3 +1,6 @@
 .DS_Store
 *~
 *.swp
+.env
+local_notebooks/*
+~/dev/github/Vandebron/scripting/python/sandbox
