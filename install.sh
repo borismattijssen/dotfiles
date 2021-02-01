@@ -119,8 +119,9 @@ install_dotfiles () {
 }
 
 install_homebrew () {
-    command -v brew &> /dev/null
-    if [ $? -ne 0 ]
+	exit_code=0
+    command -v brew &> /dev/null || exit_code=$?
+    if [ $exit_code -ne 0 ]
     then
       info 'installing homebrew'
       /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
