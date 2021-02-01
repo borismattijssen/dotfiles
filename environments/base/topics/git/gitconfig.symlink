@@ -16,7 +16,7 @@
         ui = true
 [core]
         excludesfile = ~/.gitignore
-        editor = vim
+	editor = vim
 [apply]
         whitespace = nowarn
 [mergetool]
@@ -42,3 +42,5 @@
 	smudge = git-lfs smudge -- %f
 	process = git-lfs filter-process
 	required = true
+[commit]
+	template = /Users/borismattijssen/.git-commit-template.txt
